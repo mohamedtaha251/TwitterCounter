@@ -68,4 +68,10 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.twitter4j.core)
 
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
+    testImplementation("org.mockito:mockito-core:4.11.0")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:4.1.0")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
+    testImplementation("io.mockk:mockk:1.13.4")
+
 }
