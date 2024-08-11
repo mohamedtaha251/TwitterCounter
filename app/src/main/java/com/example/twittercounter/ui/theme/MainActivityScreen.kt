@@ -13,10 +13,13 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.twittercounter.utils.postTweet
+import kotlinx.coroutines.launch
 
 @Composable
 fun TwitterCharacterCount() {
     var text by remember { mutableStateOf(TextFieldValue("")) }
+    val scope = rememberCoroutineScope()
     val maxChars = 280
 
     Column(
@@ -96,7 +99,11 @@ fun TwitterCharacterCount() {
 
         // Post tweet button
         Button(
-            onClick = { /* Post Tweet action */ },
+            onClick = {
+                scope.launch {
+                    postTweet(text.text)
+                }
+            },
             modifier = Modifier.fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
         ) {
