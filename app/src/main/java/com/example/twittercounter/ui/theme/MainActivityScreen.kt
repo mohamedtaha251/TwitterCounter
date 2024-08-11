@@ -1,5 +1,6 @@
 package com.example.twittercounter.ui.theme
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -27,8 +28,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.ClipboardManager
+import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
@@ -39,10 +43,13 @@ import com.example.twittercounter.R
 import com.example.twittercounter.utils.postTweet
 import kotlinx.coroutines.launch
 
+@SuppressLint("ServiceCast")
 @Composable
 fun TwitterCharacterCount() {
     var text by remember { mutableStateOf(TextFieldValue("")) }
     val scope = rememberCoroutineScope()
+    val clipboardManager: ClipboardManager = LocalClipboardManager.current
+
     val maxChars = 280
 
     Column(
@@ -122,7 +129,9 @@ fun TwitterCharacterCount() {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Button(
-                onClick = { /* Copy Text action */ },
+                onClick = {
+                    clipboardManager.setText(AnnotatedString(text.text))
+                },
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF00A970)),
                 shape = RoundedCornerShape(12.dp)
             ) {
