@@ -88,10 +88,13 @@ fun TwitterCharacterCount() {
             }
         }
 
-        // TextField for typing
         BasicTextField(
             value = text,
-            onValueChange = { text = it },
+            onValueChange = {
+                if (it.text.length <= maxChars) {
+                    text = it
+                }
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(150.dp)
